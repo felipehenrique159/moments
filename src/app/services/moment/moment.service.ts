@@ -15,6 +15,4 @@ export class MomentService {
     return this.http.post<FormData>(this.apiUrl, formData)
   }
 
-
-
 }
