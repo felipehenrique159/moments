@@ -15,10 +15,13 @@ export class HomeComponent {
 
   baseUrl = 'http://localhost:3333'
 
+  faSearch = faSearch
+  searchTerm: string = ''
+
   constructor(
     private momentService: MomentService
   ) {
-    this.momentService.getMoment().subscribe((items) => {
+    this.momentService.getMoments().subscribe((items) => {
       const data = items.data
       data.map((item) => {
         item.created_at = new Date(item.created_at!).toLocaleDateString('pt-BR')
@@ -27,6 +30,15 @@ export class HomeComponent {
       this.allMoments = data
       this.moments = data
     })
+  }
+
+  search(event: Event){
+   const target = event.target as HTMLInputElement
+   const value = target.value
+
+   this.moments = this.allMoments.filter(moment => {
+     return moment.title.toLowerCase().includes(value)
+   })
   }
 
 }
